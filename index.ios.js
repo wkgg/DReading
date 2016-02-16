@@ -10,12 +10,7 @@ import React, {
     TouchableOpacity,
     WebView
 } from 'react-native';
-import moment from 'moment';
-import config from './config/leanCloud.config.js';
-
-var AV = require('avoscloud-sdk');
-AV.initialize(config.appId, config.appKey);
-
+import Article from './article.js';
 
 class DetailView extends Component {
     render() {
@@ -73,24 +68,11 @@ class PostList extends Component {
         }
     }
 
-    getArticleObject(data) {
-      var articleObj = {};
-      console.log("date: ", data.get('postTime'));
-      articleObj.title = data.get('title');
-      articleObj.from = data.get('from');
-      articleObj.url = data.get('url');
-      articleObj.postTime = moment(data.get('postTime')).format('DD-MM-YYYY');;
-      return articleObj;
-    }
-
     componentWillMount() {
-      AV.Query.doCloudQuery('select title, from, url, postTime from Article').then((data) => {
-        var results = data.results.map(r => this.getArticleObject(r));
+      Article.getAll(results => {
         this.setState({
           dataSource: ds.cloneWithRows(results)
         });
-      }, function(error) {
-        console.log(error);
       });
     }
 
