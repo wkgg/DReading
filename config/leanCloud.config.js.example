@@ -1,0 +1,6 @@
+var config = {
+  appId: "",
+  appKey: ""
+};
+
+module.exports = config;

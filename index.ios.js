@@ -10,6 +10,12 @@ import React, {
     TouchableOpacity,
     WebView
 } from 'react-native';
+import moment from 'moment';
+import config from './config/leanCloud.config.js';
+
+var AV = require('avoscloud-sdk');
+AV.initialize(config.appId, config.appKey);
+
 
 class DetailView extends Component {
     render() {
@@ -57,37 +63,35 @@ class PostItem extends Component {
     }
 }
 
+var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
 class PostList extends Component {
     constructor(props) {
         super(props);
-
-        var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
-            dataSource: ds.cloneWithRows(this.getData())
+            dataSource: ds.cloneWithRows([])
         }
     }
 
-    getData() {
-        return [
-            {
-                title: "Kotlin 1.0 Released: Pragmatic Language for JVM and Android",
-                postTime: "2014-08-20 15:30:00",
-                from: "Reddit",
-                url: "http://blog.jetbrains.com/kotlin/2016/02/kotlin-1-0-released-pragmatic-language-for-jvm-and-android/"
-            },
-            {
-                title: "Looking forward to GCC6 - Many new warnings",
-                postTime: "2014-08-25 11:20:25",
-                from: "Reddit",
-                url: "https://gnu.wildebeest.org/blog/mjw/2016/02/15/looking-forward-to-gcc6-many-new-warnings/"
-            },
-            {
-                title: "How to Safely Store a Password in 2016 (PHP, Java, Node.js, C#, Ruby, Python)",
-                postTime: "2016-01-05 11:10:00",
-                from: "Reddit",
-                url: "https://paragonie.com/blog/2016/02/how-safely-store-password-in-2016"
-            }
-        ];
+    getArticleObject(data) {
+      var articleObj = {};
+      console.log("date: ", data.get('postTime'));
+      articleObj.title = data.get('title');
+      articleObj.from = data.get('from');
+      articleObj.url = data.get('url');
+      articleObj.postTime = moment(data.get('postTime')).format('DD-MM-YYYY');;
+      return articleObj;
+    }
+
+    componentWillMount() {
+      AV.Query.doCloudQuery('select title, from, url, postTime from Article').then((data) => {
+        var results = data.results.map(r => this.getArticleObject(r));
+        this.setState({
+          dataSource: ds.cloneWithRows(results)
+        });
+      }, function(error) {
+        console.log(error);
+      });
     }
 
     render() {
