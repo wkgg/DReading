@@ -1,4 +1,4 @@
-import config from './../config/leanCloud.config.js';
+import config from '../config/leanCloud.config.js';
 import moment from 'moment';
 
 var AV = require('avoscloud-sdk');

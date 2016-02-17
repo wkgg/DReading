@@ -1,9 +1,9 @@
 'use strict';
 import React, {
     Component,
-    ListView
+    ListView,
+    StyleSheet
 } from 'react-native';
-
 
 import * as Article from '../repositories/article.js';
 import ArticleItem from './article-overview-item.js';
@@ -30,12 +30,19 @@ class ArticleList extends Component {
   render() {
     return (
         <ListView
+            style={styles.list}
             dataSource={this.state.dataSource}
             renderRow={(rowData) => <ArticleItem {...this.props} {...rowData} />}
         />
     );
   }
 }
+
+const styles = StyleSheet.create({
+  list: {
+    paddingTop: 60
+  }
+});
 
 module.exports = ArticleList;
 
