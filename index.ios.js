@@ -31,7 +31,7 @@ const NavigationBarRouteMapper = {
   },
 
   RightButton: function(route, navigator, index, navState) {
-    return;
+
   },
 
   Title: function(route, navigator, index, navState) {
@@ -40,7 +40,7 @@ const NavigationBarRouteMapper = {
         {route.name}
       </Text>
     );
-  },
+  }
 };
 
 class DReading extends Component {
@@ -70,29 +70,29 @@ class DReading extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 30
+        backgroundColor: '#EDEDED'
     },
     navBar: {
       backgroundColor: 'white'
     },
     navBarText: {
       fontSize: 16,
-      marginVertical: 10,
+      marginVertical: 10
     },
     navBarTitleText: {
       color: cssVar('fbui-bluegray-60'),
       fontWeight: '500',
-      marginVertical: 9,
+      marginVertical: 9
     },
     navBarLeftButton: {
-      paddingLeft: 10,
+      paddingLeft: 10
     },
     navBarRightButton: {
-      paddingRight: 10,
+      paddingRight: 10
     },
     navBarButtonText: {
-      color: cssVar('fbui-accent-blue'),
-    },
+      color: cssVar('fbui-accent-blue')
+    }
 });
 
 AppRegistry.registerComponent('DReading', () => DReading);

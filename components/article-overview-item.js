@@ -3,7 +3,9 @@ import React, {
     StyleSheet,
     Component,
     TouchableOpacity,
-    Text
+    Text,
+    Image,
+    View
 } from 'react-native';
 
 class ArticleItem extends Component {
@@ -20,16 +22,24 @@ class ArticleItem extends Component {
   }
 
   render() {
+    var imageSource = require('../images/hackernews-logo.png');
+    if (this.props.from === 'Reddit') { imageSource = require('../images/reddit-logo.png');}
+
     return (
         <TouchableOpacity style={styles.postItem} onPress={this.onPress.bind(this)}>
+          <View style={styles.itemTitle}>
+            <Image style={styles.icon}
+                   source={imageSource}
+            />
+            <Text style={styles.from}>
+              {this.props.from}
+            </Text>
+          </View>
           <Text style={styles.title}>
             {this.props.title}
           </Text>
           <Text>
             {this.props.postTime}
-          </Text>
-          <Text style={styles.from}>
-            From: {this.props.from}
           </Text>
         </TouchableOpacity>
     );
@@ -38,16 +48,28 @@ class ArticleItem extends Component {
 
 const styles = StyleSheet.create({
   postItem: {
-    margin: 10,
-    borderWidth: 2,
-    borderColor: '#222222',
-    padding: 5
+    marginTop: 5,
+    backgroundColor: 'white',
+    padding: 15
   },
   title: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    marginBottom: 5
   },
   from: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    marginLeft: 5,
     marginTop: 5
+  },
+  itemTitle: {
+    flex: 1,
+    flexDirection: 'row',
+    marginBottom: 10
+  },
+  icon: {
+    width: 30,
+    height: 30
   }
 });
 
