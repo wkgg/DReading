@@ -1,4 +1,4 @@
-import config from './config/leanCloud.config.js';
+import config from './../config/leanCloud.config.js';
 import moment from 'moment';
 
 var AV = require('avoscloud-sdk');
@@ -9,14 +9,14 @@ function getArticleObject(data) {
   articleObj.title = data.get('title');
   articleObj.from = data.get('from');
   articleObj.url = data.get('url');
-  articleObj.postTime = moment(data.get('postTime')).format('DD-MM-YYYY');;
+  articleObj.postTime = moment(data.get('postTime')).format('DD-MM-YYYY');
   return articleObj;
 }
 
 function getAll(){
   return AV.Query.doCloudQuery('select title, from, url, postTime from Article').then((data) => {
     return data.results.map(r => getArticleObject(r));
-  }, function(error) {
+  }, error => {
     console.log(error);
   });
 }
