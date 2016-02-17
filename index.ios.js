@@ -10,7 +10,8 @@ import React, {
     TouchableOpacity,
     WebView
 } from 'react-native';
-import Article from './article.js';
+
+import * as Article from './article.js';
 
 class DetailView extends Component {
     render() {
@@ -69,7 +70,7 @@ class PostList extends Component {
     }
 
     componentWillMount() {
-      Article.getAll(results => {
+      Article.getAll().then(results => {
         this.setState({
           dataSource: ds.cloneWithRows(results)
         });
