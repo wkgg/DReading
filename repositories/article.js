@@ -9,12 +9,13 @@ function getArticleObject(data) {
   articleObj.title = data.get('title');
   articleObj.from = data.get('from');
   articleObj.url = data.get('url');
+  articleObj.content = data.get('content');
   articleObj.postTime = moment(data.get('postTime')).format('DD-MM-YYYY');
   return articleObj;
 }
 
 function getAll(){
-  return AV.Query.doCloudQuery('select title, from, url, postTime from Article').then((data) => {
+  return AV.Query.doCloudQuery('select title, from, url, content, postTime from Article').then((data) => {
     return data.results.map(r => getArticleObject(r));
   }, error => {
     console.log(error);

@@ -17,7 +17,8 @@ class ArticleItem extends Component {
     this.props.navigator.push({
       name: "DetailPage",
       index: this.props.route.index + 1,
-      url: this.props.url
+      content: this.props.content,
+      title: this.props.title
     });
   }
 

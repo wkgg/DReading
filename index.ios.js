@@ -45,7 +45,7 @@ const NavigationBarRouteMapper = {
 
 class DReading extends Component {
     renderScene(route, navigator) {
-        if (route.name === 'DetailPage') return <ArticleDetailView url={route.url}/>;
+        if (route.name === 'DetailPage') return <ArticleDetailView content={route.content} title={route.title}/>;
         return <ArticleListView route={route} navigator={navigator} />;
     }
 

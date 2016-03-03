@@ -2,27 +2,42 @@
 import React, {
     StyleSheet,
     Component,
-    WebView
+    View,
+    ScrollView,
+    Text
 } from 'react-native';
 
 class ArticleDetailView extends Component {
   render() {
     return (
-        <WebView
-            automaticallyAdjustContentInsets={false}
-            style={styles.webView}
-            url={this.props.url}
-            javaScriptEnabled={true}
-            domStorageEnabled={true}
-            startInLoadingState={true}
-        />
+        <ScrollView style={styles.view}>
+          <View style={styles.title}>
+            <Text >
+              {this.props.title}
+            </Text>
+          </View>
+          <Text style={styles.content}>
+            {this.props.content}
+          </Text>
+        </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  webView: {
-    height: 350
+  view: {
+    paddingTop: 80,
+    paddingLeft: 10,
+    height: 300
+  },
+  title: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 5
+  },
+  content: {
+    fontFamily: 'HiraginoSans-W3',
+    backgroundColor: '#fff'
   }
 });
 
